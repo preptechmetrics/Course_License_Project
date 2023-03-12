@@ -13,6 +13,7 @@ namespace Project_CTE_Course_License
             ExcelData excelData = new ExcelData();
             Dictionary<string, Dictionary<string, string>> dict = excelData.GetDictionary(filePath);
 
+     /// check code to see that dictionary is populated
             int i = 0;
             foreach (var kvp in dict)
             {
@@ -21,22 +22,31 @@ namespace Project_CTE_Course_License
                 i++;
                 if (i >= 5) break;
             }
+     /// dictionary is populated but still not matching on input
 
             Console.WriteLine("Please enter a Teaching Field code:");
             string teachFieldCode = Console.ReadLine();
 
-            if (dict.ContainsKey(teachFieldCode))
+            bool found = false;
+            foreach (KeyValuePair<string, Dictionary<string, string>> entry in dict)
             {
-                Dictionary<string, string> subDict = dict[teachFieldCode];
-                Console.WriteLine($"Subject: {subDict["Subject"]}");
-                Console.WriteLine($"Credential: {subDict["Credential"]}");
-            }
-            else
-            {
-                Console.WriteLine("No data found for Teaching Field code: " + teachFieldCode);
+                if (entry.Value["TeachField"] == teachFieldCode)
+                {
+                    Console.WriteLine($"Key: {entry.Key}");
+                    Console.WriteLine($"Subject: {entry.Value["Subject"]}");
+                    Console.WriteLine($"Credential: {entry.Value["Credential"]}");
+                    Console.WriteLine($"TeachField: {entry.Value["TeachField"]}");
+                    Console.WriteLine($"TeachFieldName: {entry.Value["TeachFieldName"]}");
+                    found = true;
+                    break;
+                }
             }
 
-            Console.ReadKey();
+            if (!found)
+            {
+                Console.WriteLine($"No data found for Teaching Field code: {teachFieldCode}");
+            }
+
         }
     }
 
