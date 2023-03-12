@@ -13,17 +13,6 @@ namespace Project_CTE_Course_License
             ExcelData excelData = new ExcelData();
             Dictionary<string, Dictionary<string, string>> dict = excelData.GetDictionary(filePath);
 
-     /// check code to see that dictionary is populated
-            int i = 0;
-            foreach (var kvp in dict)
-            {
-                Console.WriteLine($"{kvp.Key}: {kvp.Value["Subject"]}, {kvp.Value["Credential"]}, {kvp.Value["TeachField"]}, {kvp.Value["TeachFieldName"]}");
-
-                i++;
-                if (i >= 5) break;
-            }
-     /// dictionary is populated but still not matching on input
-
             Console.WriteLine("Please enter a Teaching Field code:");
             string teachFieldCode = Console.ReadLine();
 
